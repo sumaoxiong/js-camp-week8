@@ -11,6 +11,10 @@ const dayjs = require('dayjs');
  */
 function getDiscountRate(product) {
   // 請實作此函式
+  const rate = Math.round((product.price/product.origin_price)*10)
+
+  return `${rate} 折`
+
 }
 
 /**
