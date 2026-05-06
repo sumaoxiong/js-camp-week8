@@ -24,6 +24,7 @@ function getDiscountRate(product) {
  */
 function getAllCategories(products) {
   // 請實作此函式
+  return [...new Set(products.map(product => product.category))]
 }
 
 /**
@@ -34,6 +35,7 @@ function getAllCategories(products) {
 function formatDate(timestamp) {
   // 請實作此函式
   // 提示：dayjs.unix...
+  return dayjs.unix(timestamp).format('YYYY/MM/DD HH:mm')
 }
 
 /**
