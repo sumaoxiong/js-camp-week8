@@ -49,6 +49,8 @@ function getDaysAgo(timestamp) {
   // 1. 用 dayjs() 取得今天
   // 2. 用 dayjs.unix(timestamp) 取得日期
   // 3. 用 .diff() 計算天數差異
+  const diff = dayjs().diff(dayjs.unix(timestamp), 'day')
+  return diff === 0 ? '今天':`${diff} 天前`
 }
 
 /**
@@ -65,6 +67,27 @@ function getDaysAgo(timestamp) {
  */
 function validateOrderUser(data) {
   // 請實作此函式
+  const errors = [];
+  const payment = ['ATM', 'Credit Card', 'Apple Pay'];
+
+  if (!data.name || data.name.trim() === ''){
+    errors.push('姓名 不可為空')
+  }
+  if (!data.tel || !/^09\d{8}$/.test(data.tel)){
+    errors.push('電話 必須是 09 開頭的 10 位數字')
+  }
+  if (!data.email || !data.email.includes('@')){
+    errors.push('信箱 必須包含 @ 符號')
+  }
+  if (!data.address || data.address.trim().length === 0 ){
+    errors.push('地址 不可為空')
+  }
+  if (!data.payment || !payment.includes(data.payment)){
+    errors.push(`付款方式 必須是 'ATM', 'Credit Card', 'Apple Pay' 其中之一`)
+  }
+
+  // 判斷errors陣列中的數量，如果數量為0，就顯示true
+  return { isValid: errors.length === 0, errors }
 }
 
 /**
@@ -79,6 +102,11 @@ function validateOrderUser(data) {
  */
 function validateCartQuantity(quantity) {
   // 請實作此函式
+  if (Number.isInteger(quantity) && quantity > 1 && quantity < 99){
+    return { isValid: true }
+  }else{
+    return { isValid: false, error: '數量必須介於1~99' }
+  }
 }
 
 /**
@@ -98,6 +126,7 @@ function validateCartQuantity(quantity) {
  */
 function formatCurrency(amount) {
   // 請實作此函式
+  return `NT$ ${amount.toLocaleString("zh-TW")}`;
 }
 
 module.exports = {
