@@ -37,10 +37,7 @@ async function fetchCart() {
 async function addToCart(productId, quantity) {
   // 請實作此函式
   const res = await axios.post(`${BASE_URL}/api/livejs/v1/customer/${API_PATH}/carts`,{data:{productId:productId, quantity:quantity}})
-  return {
-    productId:res.data.productId,
-    quantity:res.data.quantity
-  }
+  return res.data
 }
 
 /**
@@ -120,11 +117,11 @@ async function fetchOrders() {
 async function updateOrderStatus(orderId, isPaid) {
   // 請實作此函式
   const res = await axios.put(`${BASE_URL}/api/livejs/v1/admin/${API_PATH}/orders`,{
-    headers: {
-      authorization: ADMIN_TOKEN
-    },
     data:{
       id:orderId,paid:isPaid
+    },
+    headers: {
+      authorization: ADMIN_TOKEN
     }
   })
   return res.data
