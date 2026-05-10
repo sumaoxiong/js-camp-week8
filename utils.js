@@ -102,7 +102,7 @@ function validateOrderUser(data) {
  */
 function validateCartQuantity(quantity) {
   // 請實作此函式
-  if (Number.isInteger(quantity) && quantity > 1 && quantity < 99){
+  if (Number.isInteger(quantity) && quantity >= 1 && quantity <= 99){
     return { isValid: true }
   }else{
     return { isValid: false, error: '數量必須介於1~99' }
